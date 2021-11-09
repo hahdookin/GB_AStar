@@ -1,0 +1,11 @@
+bin/
+obj/
+
+*.o
+*.lst
+*.gb
+*.sym
+*.asm
+*.ihx
+*.map
+*.noi
