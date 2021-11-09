@@ -23,6 +23,6 @@ typedef struct Rect {
 } Rect;
 
 extern void performant_delay(UINT8 loops);
-extern void animate_sprite(UINT8 sprite, INT8 movex, INT8 movey);
+extern void move_sprite_smooth(UINT8 sprite, UINT8 oldX, UINT8 oldY, UINT8 newX, UINT8 newY);
 
 #endif

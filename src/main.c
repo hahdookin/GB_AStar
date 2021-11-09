@@ -35,6 +35,7 @@ struct Actor {
 
 void main() 
 {
+    Vec2u oldPos;
     struct Node *p;
     struct Actor cursor, skeleton, hero;
 
@@ -111,13 +112,20 @@ void main()
                 p = endNode;
                 while (p->parent != NULL)
                 {
+                    oldPos.x = skeleton.pos.x;
+                    oldPos.y = skeleton.pos.y;
                     skeleton.pos.x = X_OFF + p->pos.x * SPRITE_SIZE;
                     skeleton.pos.y = Y_OFF + p->pos.y * SPRITE_SIZE;
 
-                    move_sprite(0x04, skeleton.pos.x, skeleton.pos.y);
-                    move_sprite(0x05, skeleton.pos.x, skeleton.pos.y + 8);
-                    move_sprite(0x06, skeleton.pos.x + 8, skeleton.pos.y);
-                    move_sprite(0x07, skeleton.pos.x + 8, skeleton.pos.y + 8);
+                    move_sprite_smooth(0x04, oldPos.x, oldPos.y, skeleton.pos.x, skeleton.pos.y);
+                    move_sprite_smooth(0x05, oldPos.x, oldPos.y + 8, skeleton.pos.x, skeleton.pos.y + 8);
+                    move_sprite_smooth(0x06, oldPos.x + 8, oldPos.y, skeleton.pos.x + 8, skeleton.pos.y);
+                    move_sprite_smooth(0x07, oldPos.x + 8, oldPos.y + 8, skeleton.pos.x + 8, skeleton.pos.y + 8);
+
+                    /* animate_sprite(0x04, skeleton.pos.x, skeleton.pos.y); */
+                    /* animate_sprite(0x05, skeleton.pos.x, skeleton.pos.y + 8); */
+                    /* animate_sprite(0x06, skeleton.pos.x + 8, skeleton.pos.y); */
+                    /* animate_sprite(0x07, skeleton.pos.x + 8, skeleton.pos.y + 8); */
 
                     p = p->parent;
                     performant_delay(6);
