@@ -18,6 +18,12 @@
 #define Y_OFF 16
 #define SPRITE_SIZE 16
 
+// Starting positions for actors in node grid
+#define SKEL_START_X 9
+#define SKEL_START_Y 0
+#define HERO_START_X 0
+#define HERO_START_Y 8
+
 UINT16 idxTL;
 UINT16 idxTR;
 UINT16 idxBL;
@@ -34,10 +40,10 @@ void main()
 
     cursor.pos.x = X_OFF;
     cursor.pos.y = Y_OFF;
-    skeleton.pos.x = X_OFF + 8 * SPRITE_SIZE;
-    skeleton.pos.y = Y_OFF + 4 * SPRITE_SIZE;
-    hero.pos.x = X_OFF + 1 * SPRITE_SIZE;
-    hero.pos.y = Y_OFF + 4 * SPRITE_SIZE;
+    skeleton.pos.x = X_OFF + SKEL_START_X * SPRITE_SIZE;
+    skeleton.pos.y = Y_OFF + SKEL_START_Y * SPRITE_SIZE;
+    hero.pos.x = X_OFF + HERO_START_X * SPRITE_SIZE;
+    hero.pos.y = Y_OFF + HERO_START_Y * SPRITE_SIZE;
 
     // Load background
     set_bkg_data(0x0, 8, Floor16);
@@ -64,8 +70,8 @@ void main()
     set_sprite_tile(0x0a, 0x0a);
     set_sprite_tile(0x0b, 0x0b);
 
-    startNode = &nodes[4 * NODES_W + 1];
-    endNode = &nodes[4 * NODES_W + 8];
+    startNode = &nodes[HERO_START_Y * NODES_W + HERO_START_X];
+    endNode = &nodes[SKEL_START_Y * NODES_W + SKEL_START_X];
 
     SHOW_BKG;
     SHOW_SPRITES;
@@ -120,8 +126,8 @@ void main()
         } 
         else if (joypad() & J_SELECT)
         {
-            skeleton.pos.x = X_OFF + 8 * SPRITE_SIZE;
-            skeleton.pos.y = Y_OFF + 4 * SPRITE_SIZE;
+            skeleton.pos.x = X_OFF + SKEL_START_X * SPRITE_SIZE;
+            skeleton.pos.y = Y_OFF + SKEL_START_Y * SPRITE_SIZE;
         }
 
         // (x, y)

@@ -22,7 +22,7 @@ typedef struct Rect {
     UINT8 x, y, w, h;
 } Rect;
 
-void performant_delay(UINT8 loops);
-void animate_sprite(UINT8 sprite, INT8 movex, INT8 movey);
+extern void performant_delay(UINT8 loops);
+extern void animate_sprite(UINT8 sprite, INT8 movex, INT8 movey);
 
 #endif
