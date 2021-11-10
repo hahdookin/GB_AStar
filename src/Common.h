@@ -22,7 +22,21 @@ typedef struct Rect {
     UINT8 x, y, w, h;
 } Rect;
 
+struct Actor {
+    union {
+        struct {
+            UINT8 TL;
+            UINT8 BL;
+            UINT8 TR;
+            UINT8 BR;
+        };
+        UINT8 tiles[4];
+    };
+    Vec2u pos;
+};
+
 extern void performant_delay(UINT8 loops);
-extern void move_sprite_smooth(UINT8 sprite, UINT8 oldX, UINT8 oldY, UINT8 newX, UINT8 newY);
+// Smoothly move a sprite from oldPos to newPos
+extern void move_actor_smooth(struct Actor *actor, Vec2u *oldPos, Vec2u *newPos);
 
 #endif

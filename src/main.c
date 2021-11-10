@@ -29,10 +29,6 @@ UINT16 idxTR;
 UINT16 idxBL;
 UINT16 idxBR;
 
-struct Actor {
-    Vec2u pos;
-};
-
 void main() 
 {
     Vec2u oldPos;
@@ -47,7 +43,7 @@ void main()
     hero.pos.y = Y_OFF + HERO_START_Y * SPRITE_SIZE;
 
     // Load background
-    set_bkg_data(0x0, 8, Floor16);
+    set_bkg_data(0x00, 8, Floor16);
     set_bkg_tiles(0, 0, 20, 18, Floor16Map);
 
     // Load cursor
@@ -56,6 +52,10 @@ void main()
     set_sprite_tile(0x01, 0x01);
     set_sprite_tile(0x02, 0x02);
     set_sprite_tile(0x03, 0x03);
+    cursor.TL = 0x00;
+    cursor.BL = 0x01;
+    cursor.TR = 0x02;
+    cursor.BR = 0x03;
 
     // Load skeleton
     set_sprite_data(0x04, 4, Skeleton);
@@ -63,6 +63,10 @@ void main()
     set_sprite_tile(0x05, 0x05);
     set_sprite_tile(0x06, 0x06);
     set_sprite_tile(0x07, 0x07);
+    skeleton.TL = 0x04;
+    skeleton.BL = 0x05;
+    skeleton.TR = 0x06;
+    skeleton.BR = 0x07;
 
     // Load hero
     set_sprite_data(0x08, 4, Hero);
@@ -70,6 +74,10 @@ void main()
     set_sprite_tile(0x09, 0x09);
     set_sprite_tile(0x0a, 0x0a);
     set_sprite_tile(0x0b, 0x0b);
+    hero.TL = 0x08;
+    hero.BL = 0x09;
+    hero.TR = 0x0a;
+    hero.BR = 0x0b;
 
     startNode = &nodes[HERO_START_Y * NODES_W + HERO_START_X];
     endNode = &nodes[SKEL_START_Y * NODES_W + SKEL_START_X];
@@ -114,21 +122,24 @@ void main()
                 {
                     oldPos.x = skeleton.pos.x;
                     oldPos.y = skeleton.pos.y;
+
                     skeleton.pos.x = X_OFF + p->pos.x * SPRITE_SIZE;
                     skeleton.pos.y = Y_OFF + p->pos.y * SPRITE_SIZE;
 
-                    move_sprite_smooth(0x04, oldPos.x, oldPos.y, skeleton.pos.x, skeleton.pos.y);
-                    move_sprite_smooth(0x05, oldPos.x, oldPos.y + 8, skeleton.pos.x, skeleton.pos.y + 8);
-                    move_sprite_smooth(0x06, oldPos.x + 8, oldPos.y, skeleton.pos.x + 8, skeleton.pos.y);
-                    move_sprite_smooth(0x07, oldPos.x + 8, oldPos.y + 8, skeleton.pos.x + 8, skeleton.pos.y + 8);
+                    move_actor_smooth(&skeleton, &oldPos, &skeleton.pos);
 
                     /* animate_sprite(0x04, skeleton.pos.x, skeleton.pos.y); */
                     /* animate_sprite(0x05, skeleton.pos.x, skeleton.pos.y + 8); */
                     /* animate_sprite(0x06, skeleton.pos.x + 8, skeleton.pos.y); */
                     /* animate_sprite(0x07, skeleton.pos.x + 8, skeleton.pos.y + 8); */
 
+                    /* move_sprite(0x04, skeleton.pos.x, skeleton.pos.y); */
+                    /* move_sprite(0x05, skeleton.pos.x, skeleton.pos.y + 8); */
+                    /* move_sprite(0x06, skeleton.pos.x + 8, skeleton.pos.y); */
+                    /* move_sprite(0x07, skeleton.pos.x + 8, skeleton.pos.y + 8); */
+
                     p = p->parent;
-                    performant_delay(6);
+                    performant_delay(1);
                 }
             }
         } 
