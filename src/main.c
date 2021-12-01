@@ -19,15 +19,17 @@
 #define SPRITE_SIZE 16
 
 // Starting positions for actors in node grid
-#define SKEL_START_X 9
-#define SKEL_START_Y 0
-#define HERO_START_X 0
-#define HERO_START_Y 8
+#define SKEL_START_X 8
+#define SKEL_START_Y 1
+#define HERO_START_X 1
+#define HERO_START_Y 7
 
 UINT16 idxTL;
 UINT16 idxTR;
 UINT16 idxBL;
 UINT16 idxBR;
+
+UINT8 i;
 
 void main() 
 {
@@ -118,6 +120,20 @@ void main()
             {
                 // Traverse the path discovered
                 p = endNode;
+                if (p->parent == NULL) {
+                    // Couldn't find a solution!
+                    oldPos.x = skeleton.pos.x;
+                    oldPos.y = skeleton.pos.y;
+                    // The skeleton should shake in anger
+                    for (i = 0; i < 6; i++) {
+                        skeleton.pos.x -= 3;
+                        move_actor_smooth(&skeleton, &oldPos, &skeleton.pos);
+                        skeleton.pos.x += 6;
+                        move_actor_smooth(&skeleton, &oldPos, &skeleton.pos);
+                        skeleton.pos.x -= 3;
+                        move_actor_smooth(&skeleton, &oldPos, &skeleton.pos);
+                    }
+                }
                 while (p->parent != NULL)
                 {
                     oldPos.x = skeleton.pos.x;
@@ -141,7 +157,7 @@ void main()
                     p = p->parent;
                     performant_delay(1);
                 }
-            }
+            } 
         } 
         else if (joypad() & J_SELECT)
         {
