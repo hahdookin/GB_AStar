@@ -1,7 +1,10 @@
 #include "AStar.h"
 
 #define distance(a, b) \
-    (isqrt( (a->pos.x - b->pos.x) * (a->pos.x - b->pos.x) + (a->pos.y - b->pos.y) * (a->pos.y - b->pos.y)))
+    (isqrt( \
+       (a->pos.x - b->pos.x) * (a->pos.x - b->pos.x) + \
+       (a->pos.y - b->pos.y) * (a->pos.y - b->pos.y) \
+    ))
 
 #define heuristic(a, b) (distance(a, b))
 
