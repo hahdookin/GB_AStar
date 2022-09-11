@@ -107,10 +107,10 @@ void main()
         if (joypad() & J_START)
         {
             // Hide cursor by moving offscreen
-            move_sprite(0x00, 0, 0);
-            move_sprite(0x01, 0, 0);
-            move_sprite(0x02, 0, 0);
-            move_sprite(0x03, 0, 0);
+            move_sprite(cursor.TL, 0, 0);
+            move_sprite(cursor.BL, 0, 0);
+            move_sprite(cursor.TR, 0, 0);
+            move_sprite(cursor.BR, 0, 0);
 
             initialize_nodes();
             determine_obstacles();
@@ -192,22 +192,22 @@ void main()
         }
 
         // Move cursor
-        move_sprite(0x00, cursor.pos.x, cursor.pos.y);
-        move_sprite(0x01, cursor.pos.x, cursor.pos.y + 8);
-        move_sprite(0x02, cursor.pos.x + 8, cursor.pos.y);
-        move_sprite(0x03, cursor.pos.x + 8, cursor.pos.y + 8);
+        move_sprite(cursor.TL, cursor.pos.x, cursor.pos.y);
+        move_sprite(cursor.BL, cursor.pos.x, cursor.pos.y + 8);
+        move_sprite(cursor.TR, cursor.pos.x + 8, cursor.pos.y);
+        move_sprite(cursor.BR, cursor.pos.x + 8, cursor.pos.y + 8);
 
         // Move skeleton
-        move_sprite(0x04, skeleton.pos.x, skeleton.pos.y);
-        move_sprite(0x05, skeleton.pos.x, skeleton.pos.y + 8);
-        move_sprite(0x06, skeleton.pos.x + 8, skeleton.pos.y);
-        move_sprite(0x07, skeleton.pos.x + 8, skeleton.pos.y + 8);
+        move_sprite(skeleton.TL, skeleton.pos.x, skeleton.pos.y);
+        move_sprite(skeleton.BL, skeleton.pos.x, skeleton.pos.y + 8);
+        move_sprite(skeleton.TR, skeleton.pos.x + 8, skeleton.pos.y);
+        move_sprite(skeleton.BR, skeleton.pos.x + 8, skeleton.pos.y + 8);
 
         // Move hero
-        move_sprite(0x08, hero.pos.x, hero.pos.y);
-        move_sprite(0x09, hero.pos.x, hero.pos.y + 8);
-        move_sprite(0x0a, hero.pos.x + 8, hero.pos.y);
-        move_sprite(0x0b, hero.pos.x + 8, hero.pos.y + 8);
+        move_sprite(hero.TL, hero.pos.x, hero.pos.y);
+        move_sprite(hero.BL, hero.pos.x, hero.pos.y + 8);
+        move_sprite(hero.TR, hero.pos.x + 8, hero.pos.y);
+        move_sprite(hero.BR, hero.pos.x + 8, hero.pos.y + 8);
 
         performant_delay(6);
     }
